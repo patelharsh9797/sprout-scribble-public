@@ -22,6 +22,27 @@
       "when": 1716356520862,
       "tag": "0002_free_bastion",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1716360124889,
+      "tag": "0003_smart_crystal",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1716364364892,
+      "tag": "0004_cultured_lady_deathstrike",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1716364701215,
+      "tag": "0005_windy_power_pack",
+      "breakpoints": true
     }
   ]
 }
