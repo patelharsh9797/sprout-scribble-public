@@ -15,6 +15,13 @@
       "when": 1716356144099,
       "tag": "0001_motionless_otto_octavius",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1716356520862,
+      "tag": "0002_free_bastion",
+      "breakpoints": true
     }
   ]
 }
