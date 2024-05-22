@@ -5,6 +5,7 @@ import { db } from "@/server";
 import { eq } from "drizzle-orm";
 import { users } from "@/server/schema";
 import bcrypt from "bcrypt";
+import { getVerificationTokenByEmail } from "./tokens";
 
 export const emailRegister = safeAction(
   RegisterSchema,
@@ -18,12 +19,23 @@ export const emailRegister = safeAction(
     });
 
     if (existingUser) {
-      // if(!existingUser.emailVerified) {
-      //
-      // }
+      if (!existingUser.emailVerified) {
+        const verificationToken = await getVerificationTokenByEmail(email);
+        // await sendVerificationEmail()
+        //
+        return { success: "Email verification has been resent." };
+      }
 
       return { error: "Email already in use!" };
     }
-    return { success: "Yay" };
+
+    const newUser = await db.insert(users).values({
+      email: email,
+      name: name,
+      password: hashedPassword,
+    });
+
+    const verificationToken = await getVerificationTokenByEmail(email);
+    return { success: "Confirmation email sent." };
   },
 );
