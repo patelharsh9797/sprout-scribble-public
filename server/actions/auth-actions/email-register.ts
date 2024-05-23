@@ -5,7 +5,11 @@ import { db } from "@/server";
 import { eq } from "drizzle-orm";
 import { users } from "@/server/schema";
 import bcrypt from "bcrypt";
-import { getVerificationTokenByEmail } from "./tokens";
+import {
+  generateEmailVerificationToken,
+  getVerificationTokenByEmail,
+} from "./tokens";
+import { sendVerificationEmail } from "./emails";
 
 export const emailRegister = safeAction(
   RegisterSchema,
@@ -20,9 +24,11 @@ export const emailRegister = safeAction(
 
     if (existingUser) {
       if (!existingUser.emailVerified) {
-        const verificationToken = await getVerificationTokenByEmail(email);
-        // await sendVerificationEmail()
-        //
+        const verificationToken = await generateEmailVerificationToken(email);
+        await sendVerificationEmail(
+          verificationToken[0].email,
+          verificationToken[0].token,
+        );
         return { success: "Email verification has been resent." };
       }
 
@@ -35,7 +41,11 @@ export const emailRegister = safeAction(
       password: hashedPassword,
     });
 
-    const verificationToken = await getVerificationTokenByEmail(email);
+    const verificationToken = await generateEmailVerificationToken(email);
+    await sendVerificationEmail(
+      verificationToken[0].email,
+      verificationToken[0].token,
+    );
     return { success: "Confirmation email sent." };
   },
 );

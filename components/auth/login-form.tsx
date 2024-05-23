@@ -69,7 +69,7 @@ const LoginForm = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        We've sent you a two factor code to your email.
+                        {`We've sent you a two factor code to your email.`}
                       </FormLabel>
                       <FormControl>
                         {/* <InputOTP */}
