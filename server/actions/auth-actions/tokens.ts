@@ -7,6 +7,9 @@ import {
   passwordResetTokens,
 } from "@/server/schema";
 import { eq } from "drizzle-orm";
+import { sendVerificationEmail } from "./emails";
+
+const getExpiresTime = () => new Date(new Date().getTime() + 3600 * 1000);
 
 export const getVerificationTokenByEmail = async (email: string) => {
   try {
@@ -19,9 +22,20 @@ export const getVerificationTokenByEmail = async (email: string) => {
   }
 };
 
+export const getVerificationTokenByToken = async (token: string) => {
+  try {
+    const verificationToken = await db.query.emailTokens.findFirst({
+      where: eq(emailTokens.token, token),
+    });
+    return verificationToken;
+  } catch (error) {
+    return null;
+  }
+};
+
 export const generateEmailVerificationToken = async (email: string) => {
   const token = crypto.randomUUID();
-  const expires = new Date(new Date().getTime() + 3600 * 1000);
+  const expires = getExpiresTime();
 
   const existingToken = await getVerificationTokenByEmail(email);
 
@@ -43,15 +57,33 @@ export const generateEmailVerificationToken = async (email: string) => {
 
 export const newVerification = async (token: string) => {
   const existingToken = await getVerificationTokenByEmail(token);
-  if (!existingToken) return { error: "Token not found" };
+
+  if (!existingToken) return { error: "Token not found!" };
+
   const hasExpired = new Date(existingToken.expires) < new Date();
 
-  if (hasExpired) return { error: "Token has expired" };
+  if (hasExpired) {
+    const newToken = crypto.randomUUID();
+
+    await sendVerificationEmail(existingToken.email, newToken);
+
+    await db.update(emailTokens).set({
+      token: newToken,
+      email: existingToken.email,
+      expires: getExpiresTime(),
+    });
+
+    return {
+      error: "Token has expired!. \n A New verification email has been sent.",
+    };
+  }
 
   const existingUser = await db.query.users.findFirst({
     where: eq(users.email, existingToken.email),
   });
-  if (!existingUser) return { error: "Email does not exist" };
+
+  if (!existingUser) return { error: "Email does not exist!" };
+
   await db.update(users).set({
     emailVerified: new Date(),
     email: existingToken.email,
