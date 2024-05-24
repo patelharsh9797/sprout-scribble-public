@@ -14,7 +14,7 @@ const getExpiresTime = () => new Date(new Date().getTime() + 3600 * 1000);
 export const getVerificationTokenByEmail = async (email: string) => {
   try {
     const verificationToken = await db.query.emailTokens.findFirst({
-      where: eq(emailTokens.token, email),
+      where: eq(emailTokens.email, email),
     });
     return verificationToken;
   } catch (error) {
@@ -56,7 +56,7 @@ export const generateEmailVerificationToken = async (email: string) => {
 };
 
 export const newVerification = async (token: string) => {
-  const existingToken = await getVerificationTokenByEmail(token);
+  const existingToken = await getVerificationTokenByToken(token);
 
   if (!existingToken) return { error: "Token not found!" };
 
@@ -67,11 +67,14 @@ export const newVerification = async (token: string) => {
 
     await sendVerificationEmail(existingToken.email, newToken);
 
-    await db.update(emailTokens).set({
-      token: newToken,
-      email: existingToken.email,
-      expires: getExpiresTime(),
-    });
+    await db
+      .update(emailTokens)
+      .set({
+        token: newToken,
+        email: existingToken.email,
+        expires: getExpiresTime(),
+      })
+      .where(eq(emailTokens.id, existingToken.id));
 
     return {
       error: "Token has expired!. \n A New verification email has been sent.",
@@ -84,10 +87,13 @@ export const newVerification = async (token: string) => {
 
   if (!existingUser) return { error: "Email does not exist!" };
 
-  await db.update(users).set({
-    emailVerified: new Date(),
-    email: existingToken.email,
-  });
+  await db
+    .update(users)
+    .set({
+      emailVerified: new Date(),
+      email: existingToken.email,
+    })
+    .where(eq(users.id, existingUser.id));
 
   await db.delete(emailTokens).where(eq(emailTokens.id, existingToken.id));
   return { success: "Email Verified" };

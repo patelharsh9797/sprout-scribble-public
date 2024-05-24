@@ -16,8 +16,6 @@ export const emailRegister = safeAction(
   async ({ email, name, password }) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    console.log(hashedPassword);
-
     const existingUser = await db.query.users.findFirst({
       where: eq(users.email, email),
     });
@@ -35,17 +33,19 @@ export const emailRegister = safeAction(
       return { error: "Email already in use!" };
     }
 
-    const newUser = await db.insert(users).values({
+    await db.insert(users).values({
       email: email,
       name: name,
       password: hashedPassword,
     });
 
     const verificationToken = await generateEmailVerificationToken(email);
+
     await sendVerificationEmail(
       verificationToken[0].email,
       verificationToken[0].token,
     );
+
     return { success: "Confirmation email sent." };
   },
 );
