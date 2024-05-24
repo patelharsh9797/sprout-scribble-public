@@ -23,3 +23,18 @@ export const RegisterSchema = z.object({
 });
 
 export type RegisterSchemaType = z.infer<typeof RegisterSchema>;
+
+export const NewPasswordSchema = z.object({
+  password: z.string().min(8, "Password must be at least 8 characters long"),
+  token: z.string().nullable().optional(),
+});
+
+export type NewPasswordSchemaType = z.infer<typeof NewPasswordSchema>;
+
+export const ResetSchema = z.object({
+  email: z.string().email({
+    message: "Email is required",
+  }),
+});
+
+export type ResetSchemaType = z.infer<typeof ResetSchema>;
