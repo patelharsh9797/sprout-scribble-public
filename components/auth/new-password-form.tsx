@@ -50,6 +50,8 @@ export const NewPasswordForm = () => {
   });
 
   const onSubmit = (values: NewPasswordSchemaType) => {
+    if (success) setSuccess("");
+    if (error) setError("");
     execute({ password: values.password, token });
   };
 

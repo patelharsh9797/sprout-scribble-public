@@ -43,6 +43,8 @@ export default function ResetForm() {
   });
 
   const onSubmit = (values: ResetSchemaType) => {
+    if (error) setError("");
+    if (success) setSuccess("");
     execute(values);
   };
 

@@ -1,14 +1,14 @@
 "use client";
-import { LogIn, LogOut, Settings, Truck, TruckIcon } from "lucide-react";
+import { LogIn, LogOut, Settings, TruckIcon } from "lucide-react";
 import { Session } from "next-auth";
 import React from "react";
 import { Button } from "../ui/button";
 import { signOut, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -20,6 +20,7 @@ type UserButtonProps = {
 };
 
 const UserButton = ({ session }: UserButtonProps) => {
+  const router = useRouter();
   return (
     <>
       {!session?.user ? (
