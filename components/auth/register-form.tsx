@@ -67,11 +67,7 @@ export const RegisterForm = () => {
                   <FormItem>
                     <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="developedbyed"
-                        type="text"
-                      />
+                      <Input {...field} placeholder="johndeo" type="text" />
                     </FormControl>
                     <FormDescription />
                     <FormMessage />
@@ -87,7 +83,7 @@ export const RegisterForm = () => {
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="developedbyed@gmail.com"
+                        placeholder="johndeo@gmail.com"
                         type="email"
                         autoComplete="email"
                       />
@@ -118,9 +114,6 @@ export const RegisterForm = () => {
               />
               <FormSuccess message={success} />
               <FormError message={error} />
-              <Button size={"sm"} variant={"link"} asChild>
-                <Link href="/auth/reset">Forgot your password</Link>
-              </Button>
             </div>
             <Button
               type="submit"

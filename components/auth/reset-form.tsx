@@ -79,9 +79,6 @@ export default function ResetForm() {
               />
               <FormSuccess message={success} />
               <FormError message={error} />
-              {/* <Button size={"sm"} variant={"link"} asChild> */}
-              {/*   <Link href="/auth/reset">Forgot your password</Link> */}
-              {/* </Button> */}
             </div>
             <Button
               type="submit"

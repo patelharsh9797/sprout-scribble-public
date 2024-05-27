@@ -103,7 +103,7 @@ const LoginForm = () => {
                         <FormControl>
                           <Input
                             {...field}
-                            placeholder="developedbyed@gmail.com"
+                            placeholder="jondeo@gmail.com"
                             type="email"
                             autoComplete="email"
                           />
