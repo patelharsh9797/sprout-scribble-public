@@ -43,6 +43,13 @@
       "when": 1716364701215,
       "tag": "0005_windy_power_pack",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1716800649833,
+      "tag": "0006_closed_quicksilver",
+      "breakpoints": true
     }
   ]
 }
