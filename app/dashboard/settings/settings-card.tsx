@@ -28,6 +28,8 @@ import { settings } from "@/server/actions/settings";
 import { useAction } from "next-safe-action/hooks";
 import { FormError } from "@/components/auth/form-error";
 import { FormSuccess } from "@/components/auth/form-success";
+import { UploadButton } from "@/app/api/uploadthing/uploadthing";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type Props = {
   session: Session;
@@ -37,6 +39,7 @@ const SettingsCard = ({ session }: Props) => {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [avatarUploading, setAvatarUploading] = useState(false);
+
   const form = useForm<SettingsSchemaType>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
@@ -112,36 +115,36 @@ const SettingsCard = ({ session }: Props) => {
                           src={form.getValues("image")!}
                           width={42}
                           height={42}
-                          className="rounded-full"
+                          className="h-[42px] w-[42px] rounded-full"
                           alt="User Image"
                         />
                       )}
-                      {/* <UploadButton */}
-                      {/*   className="scale-75 ut-button:ring-primary  ut-label:bg-red-50  ut-button:bg-primary/75  hover:ut-button:bg-primary/100 ut:button:transition-all ut-button:duration-500  ut-label:hidden ut-allowed-content:hidden" */}
-                      {/*   endpoint="avatarUploader" */}
-                      {/*   onUploadBegin={() => { */}
-                      {/*     setAvatarUploading(true) */}
-                      {/*   }} */}
-                      {/*   onUploadError={(error) => { */}
-                      {/*     form.setError("image", { */}
-                      {/*       type: "validate", */}
-                      {/*       message: error.message, */}
-                      {/*     }) */}
-                      {/*     setAvatarUploading(false) */}
-                      {/*     return */}
-                      {/*   }} */}
-                      {/*   onClientUploadComplete={(res) => { */}
-                      {/*     form.setValue("image", res[0].url!) */}
-                      {/*     setAvatarUploading(false) */}
-                      {/*     return */}
-                      {/*   }} */}
-                      {/*   content={{ */}
-                      {/*     button({ ready }) { */}
-                      {/*       if (ready) return <div>Change Avatar</div> */}
-                      {/*       return <div>Uploading...</div> */}
-                      {/*     }, */}
-                      {/*   }} */}
-                      {/* /> */}
+                      <UploadButton
+                        className="ut:button:transition-all scale-75  ut-button:bg-primary/75  ut-button:ring-primary  ut-button:duration-500 hover:ut-button:bg-primary/100 ut-allowed-content:hidden  ut-label:hidden ut-label:bg-red-50"
+                        endpoint="avatarUploader"
+                        onUploadBegin={() => {
+                          setAvatarUploading(true);
+                        }}
+                        onUploadError={(error) => {
+                          form.setError("image", {
+                            type: "validate",
+                            message: error.message,
+                          });
+                          setAvatarUploading(false);
+                          return;
+                        }}
+                        onClientUploadComplete={(res) => {
+                          form.setValue("image", res[0].url!);
+                          setAvatarUploading(false);
+                          return;
+                        }}
+                        content={{
+                          button({ ready }) {
+                            if (ready) return <div>Change Avatar</div>;
+                            return <div>Uploading...</div>;
+                          },
+                        }}
+                      />
                     </div>
                     <FormControl>
                       <Input

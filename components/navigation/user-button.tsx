@@ -49,7 +49,7 @@ const UserButton = ({ session }: UserButtonProps) => {
                     alt={session.user?.name ?? ""}
                     width={48}
                     height={48}
-                    className="rounded-full"
+                    className="h-[48px] w-[48px] rounded-full"
                   />
                 )}
                 <p className="text-xs font-bold">{session.user?.name}</p>
