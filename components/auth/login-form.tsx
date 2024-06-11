@@ -21,6 +21,7 @@ import { emailSignIn } from "@/server/actions/auth-actions";
 import { useAction } from "next-safe-action/hooks";
 import { FormSuccess } from "./form-success";
 import { FormError } from "./form-error";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 
 const LoginForm = () => {
   const form = useForm<LoginSchemaType>({
@@ -41,7 +42,7 @@ const LoginForm = () => {
       if (data?.success) {
         setSuccess(data.success);
       }
-      // if (data?.twoFactor) setShowTwoFactor(true);
+      if (data?.twoFactor) setShowTwoFactor(true);
     },
   });
 
@@ -72,20 +73,20 @@ const LoginForm = () => {
                         {`We've sent you a two factor code to your email.`}
                       </FormLabel>
                       <FormControl>
-                        {/* <InputOTP */}
-                        {/*   disabled={status === "executing"} */}
-                        {/*   {...field} */}
-                        {/*   maxLength={6} */}
-                        {/* > */}
-                        {/*   <InputOTPGroup> */}
-                        {/*     <InputOTPSlot index={0} /> */}
-                        {/*     <InputOTPSlot index={1} /> */}
-                        {/*     <InputOTPSlot index={2} /> */}
-                        {/*     <InputOTPSlot index={3} /> */}
-                        {/*     <InputOTPSlot index={4} /> */}
-                        {/*     <InputOTPSlot index={5} /> */}
-                        {/*   </InputOTPGroup> */}
-                        {/* </InputOTP> */}
+                        <InputOTP
+                          disabled={status === "executing"}
+                          {...field}
+                          maxLength={6}
+                        >
+                          <InputOTPGroup>
+                            <InputOTPSlot index={0} />
+                            <InputOTPSlot index={1} />
+                            <InputOTPSlot index={2} />
+                            <InputOTPSlot index={3} />
+                            <InputOTPSlot index={4} />
+                            <InputOTPSlot index={5} />
+                          </InputOTPGroup>
+                        </InputOTP>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
