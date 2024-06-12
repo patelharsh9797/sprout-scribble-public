@@ -1,7 +1,6 @@
 import { auth } from "@/server/auth";
 import { BarChart, Package, PenSquare, Settings, Truck } from "lucide-react";
-
-// import DashboardNav from "@/components/navigation/dashboard-nav";
+import DashboardNav from "@/components/navigation/dashboard-nav";
 
 export default async function DashboardLayout({
   children,
@@ -23,32 +22,32 @@ export default async function DashboardLayout({
     },
   ] as const;
 
-  // const adminLinks =
-  //   session?.user.role === "admin"
-  //     ? [
-  //         {
-  //           label: "Analytics",
-  //           path: "/dashboard/analytics",
-  //           icon: <BarChart size={16} />,
-  //         },
-  //         {
-  //           label: "Create",
-  //           path: "/dashboard/add-product",
-  //           icon: <PenSquare size={16} />,
-  //         },
-  //         {
-  //           label: "Products",
-  //           path: "/dashboard/products",
-  //           icon: <Package size={16} />,
-  //         },
-  //       ]
-  //     : []
+  const adminLinks =
+    session?.user.role === "admin"
+      ? [
+          {
+            label: "Analytics",
+            path: "/dashboard/analytics",
+            icon: <BarChart size={16} />,
+          },
+          {
+            label: "Create",
+            path: "/dashboard/add-product",
+            icon: <PenSquare size={16} />,
+          },
+          {
+            label: "Products",
+            path: "/dashboard/products",
+            icon: <Package size={16} />,
+          },
+        ]
+      : [];
 
-  // const allLinks = [...adminLinks, ...userLinks]
+  const allLinks = [...adminLinks, ...userLinks];
 
   return (
     <div>
-      {/* <DashboardNav allLinks={allLinks} /> */}
+      <DashboardNav allLinks={allLinks} />
       {children}
     </div>
   );

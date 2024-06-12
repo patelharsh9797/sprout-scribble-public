@@ -71,6 +71,20 @@
       "when": 1718103269641,
       "tag": "0009_nifty_warbound",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1718169174128,
+      "tag": "0010_woozy_harpoon",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1718169674135,
+      "tag": "0011_sudden_goblin_queen",
+      "breakpoints": true
     }
   ]
 }

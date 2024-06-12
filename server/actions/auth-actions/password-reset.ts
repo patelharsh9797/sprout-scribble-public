@@ -9,7 +9,6 @@ import { sendPasswordResetEmail } from "./emails";
 import { safeAction } from "../create-safe-action";
 
 export const reset = safeAction(ResetSchema, async ({ email }) => {
-  console.log("reset action running");
   const existingUser = await db.query.users.findFirst({
     where: eq(users.email, email),
   });

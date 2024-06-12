@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Nav from "@/components/navigation/nav";
 import { ThemeProvider } from "@/components/theme-provider";
+import Toaster from "@/components/ui/toaster";
 
 const geist = GeistSans;
 
@@ -28,7 +29,7 @@ export default function RootLayout({
         >
           <div className="max-w-8xl mx-auto flex-grow px-6 md:px-12">
             <Nav />
-            {/* <Toaster /> */}
+            <Toaster />
             {children}
           </div>
         </ThemeProvider>
