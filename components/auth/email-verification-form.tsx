@@ -1,7 +1,8 @@
 "use client";
 
 import { newVerification } from "@/server/actions/auth-actions";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useCallback, useEffect, useState } from "react";
 import { AuthCard } from "./auth-card";
 import { FormError } from "./form-error";

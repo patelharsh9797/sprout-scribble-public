@@ -22,8 +22,9 @@ import { ProductSchema, type ProductSchemaType } from "@/types/zod-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DollarSign } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import Tiptap from "./tiptap";
@@ -39,6 +40,7 @@ export default function ProductForm() {
     mode: "onChange",
   });
 
+  const [toastId, setToastId] = useState<string | number>("");
   const router = useRouter();
   const searchParams = useSearchParams();
   const editMode = searchParams.get("id");
@@ -78,12 +80,17 @@ export default function ProductForm() {
       }
     },
     onExecute: () => {
-      // if (editMode) {
-      //   toast.loading("Editing Product");
-      // }
-      // if (!editMode) {
-      //   toast.loading("Creating Product");
-      // }
+      let toastId: string | number = "";
+      if (editMode) {
+        toastId = toast.loading("Editing Product");
+      }
+      if (!editMode) {
+        toastId = toast.loading("Creating Product");
+      }
+      setToastId(toastId);
+    },
+    onSettled: () => {
+      toast.dismiss(toastId);
     },
   });
 

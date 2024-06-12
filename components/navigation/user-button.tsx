@@ -4,7 +4,7 @@ import { Session } from "next-auth";
 import React from "react";
 import { Button } from "../ui/button";
 import { signOut, signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import {
   DropdownMenu,
   DropdownMenuContent,
