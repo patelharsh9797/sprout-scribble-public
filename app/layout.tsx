@@ -5,6 +5,7 @@ import "./globals.css";
 import Nav from "@/components/navigation/nav";
 import { ThemeProvider } from "@/components/theme-provider";
 import Toaster from "@/components/ui/toaster";
+import Progressbar from "@/components/NextProgressbar";
 
 const geist = GeistSans;
 
@@ -29,6 +30,7 @@ export default function RootLayout({
         >
           <div className="max-w-8xl mx-auto flex-grow px-6 md:px-12">
             <Nav />
+            <Progressbar />
             <Toaster />
             {children}
           </div>
