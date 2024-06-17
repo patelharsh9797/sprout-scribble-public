@@ -1,5 +1,9 @@
 "use client";
-import React, { useState } from "react";
+
+import { UploadButton } from "@/app/api/uploadthing/upload";
+import { FormError } from "@/components/auth/form-error";
+import { FormSuccess } from "@/components/auth/form-success";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,11 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import type { Session } from "next-auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { SettingsSchema, type SettingsSchemaType } from "@/types/zod-schema";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -22,14 +21,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
 import { Switch } from "@/components/ui/switch";
 import { settings } from "@/server/actions/settings";
+import { SettingsSchema, type SettingsSchemaType } from "@/types/zod-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { Session } from "next-auth";
 import { useAction } from "next-safe-action/hooks";
-import { FormError } from "@/components/auth/form-error";
-import { FormSuccess } from "@/components/auth/form-success";
-import { UploadButton } from "@/app/api/uploadthing/uploadthing";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Image from "next/image";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 type Props = {
   session: Session;
