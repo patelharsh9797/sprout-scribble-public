@@ -15,6 +15,9 @@ export const env = createEnv({
     RESEND_API_KEY: z.string().min(1),
     UPLOADTHING_SECRET: z.string().min(1),
     UPLOADTHING_APP_ID: z.string().min(1),
+    ALGOLIA_APPLICATION_ID: z.string().min(1),
+    ALGOLIA_WRITE_API_KEY: z.string().min(1),
+    ALGOLIA_SEARCH_API_KEY: z.string().min(1),
   },
   client: {
     // NEXT_PUBLIC_PUBLISHABLE_KEY: z.string().min(1),
@@ -33,6 +36,9 @@ export const env = createEnv({
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
     UPLOADTHING_APP_ID: process.env.UPLOADTHING_APP_ID,
+    ALGOLIA_APPLICATION_ID: process.env.ALGOLIA_APPLICATION_ID,
+    ALGOLIA_WRITE_API_KEY: process.env.ALGOLIA_WRITE_API_KEY,
+    ALGOLIA_SEARCH_API_KEY: process.env.ALGOLIA_SEARCH_API_KEY,
   },
   // For Next.js >: 13.4.4, you only need to destructure client variables:
   // experimental__runtimeEnv: {

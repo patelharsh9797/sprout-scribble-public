@@ -28,7 +28,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="max-w-8xl mx-auto flex-grow px-6 md:px-12">
+          <div className="max-w-6xl mx-auto flex-grow px-6 md:px-12">
             <Nav />
             <Progressbar />
             <Toaster />
