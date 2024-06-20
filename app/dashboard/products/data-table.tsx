@@ -1,6 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -60,7 +61,15 @@ export function DataTable<TData, TValue>({
         <CardHeader>
           <CardTitle>Your Products</CardTitle>
           <CardDescription>
-            Update, delete and edit your products 💯
+            <span>Update, delete and edit your products 💯</span>
+            <Link
+              href="/dashboard/add-product"
+              className={buttonVariants({
+                variant: "link",
+              })}
+            >
+              Add Product
+            </Link>
           </CardDescription>
         </CardHeader>
         <CardContent>

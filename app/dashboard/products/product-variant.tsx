@@ -100,6 +100,7 @@ export const ProductVariant = forwardRef<HTMLDivElement, VariantProps>(
           toast.success(data.success);
           setOpen(false);
         }
+        form.reset();
       },
       onSettled() {
         toast.dismiss(toastId as string);

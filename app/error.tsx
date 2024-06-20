@@ -1,5 +1,7 @@
 "use client"; // Error components must be Client Components
 
+import { Button } from "@/components/ui/button";
+import { RefreshCcw } from "lucide-react";
 import { useEffect } from "react";
 
 export default function Error({
@@ -15,16 +17,17 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="w-full min-h-56 text-lg flex items-center justify-center flex-col">
+    <div className="flex min-h-56 w-full flex-col items-center justify-center gap-4 text-lg">
       <h2>{error.message}</h2>
-      <button
+      <Button
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
         }
       >
-        Try again
-      </button>
+        <RefreshCcw size={16} className="mr-2" />
+        <span>Try again</span>
+      </Button>
     </div>
   );
 }
