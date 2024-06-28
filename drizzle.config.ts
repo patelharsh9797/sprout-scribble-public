@@ -4,7 +4,7 @@ import { env } from "@/env.mjs";
 export default defineConfig({
   schema: "./server/schema.ts",
   out: "./server/migrations",
-  dialect: "postgresql", // 'postgresql' | 'mysql' | 'sqlite'
+  dialect: "postgresql",
   dbCredentials: {
     url: env.DATABASE_URL,
   },

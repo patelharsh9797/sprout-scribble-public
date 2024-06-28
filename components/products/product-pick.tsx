@@ -22,12 +22,18 @@ export default function ProductPick({
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedColor = searchParams.get("type" || productType);
+
   return (
     <div
-      style={{ background: color }}
+      title={color}
+      style={{
+        background: color,
+        // @ts-ignore
+        "--tw-ring-color": selectedColor === productType ? color : undefined,
+      }}
       className={cn(
-        "hober: h-8 w-8 cursor-pointer rounded-full opacity-75 transition-all duration-300 ease-in-out",
-        selectedColor === productType ? "opacity-100" : "opacity-50",
+        `h-8 w-8 cursor-pointer rounded-full ring-[1px] ring-transparent ring-offset-2 ring-offset-background transition-all duration-300 ease-in-out hover:opacity-75`,
+        selectedColor === productType ? `opacity-100` : `opacity-50`,
       )}
       onClick={() =>
         router.push(
