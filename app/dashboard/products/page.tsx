@@ -2,6 +2,11 @@ import { db } from "@/server";
 import placeholder from "@/public/placeholder_small.jpg";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Products",
+};
 
 const ProductPage = async () => {
   const products = await db.query.products.findMany({

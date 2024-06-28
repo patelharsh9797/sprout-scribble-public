@@ -1,3 +1,4 @@
+import type { Metadata, ResolvingMetadata } from "next";
 import ProductType from "@/components/products/product-type";
 import { db } from "@/server";
 import { productVariants } from "@/server/schema";
@@ -12,6 +13,8 @@ import ProductShowcase from "@/components/products/product-showcase";
 // import AddCart from "@/components/cart/add-cart";
 
 export const revalidate = 60;
+
+type Props = { params: { slug: string } };
 
 export async function generateStaticParams() {
   const data = await db.query.productVariants.findMany({
@@ -29,7 +32,25 @@ export async function generateStaticParams() {
   return [];
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const variant = await db.query.productVariants.findFirst({
+    where: eq(productVariants.id, Number(params.slug)),
+    with: {
+      product: true,
+    },
+  });
+
+  const oldTitle = (await parent).title || ""
+
+  return {
+    title: variant ? variant.product.title : oldTitle,
+  };
+}
+
+export default async function Page({ params }: Props) {
   const variant = await db.query.productVariants.findFirst({
     where: eq(productVariants.id, Number(params.slug)),
     with: {
