@@ -7,9 +7,9 @@ import { Separator } from "@/components/ui/separator";
 import formatPrice from "@/lib/format-price";
 import ProductPick from "@/components/products/product-pick";
 import ProductShowcase from "@/components/products/product-showcase";
-// import Reviews from "@/components/reviews/reviews";
-// import { getReviewAverage } from "@/lib/review-avarage";
-// import Stars from "@/components/reviews/stars";
+import Reviews from "@/components/reviews/reviews";
+import { getReviewAverage } from "@/lib/utils";
+import Stars from "@/components/reviews/stars";
 // import AddCart from "@/components/cart/add-cart";
 
 export const revalidate = 60;
@@ -43,7 +43,7 @@ export async function generateMetadata(
     },
   });
 
-  const oldTitle = (await parent).title || ""
+  const oldTitle = (await parent).title || "";
 
   return {
     title: variant ? variant.product.title : oldTitle,
@@ -66,9 +66,9 @@ export default async function Page({ params }: Props) {
   });
 
   if (variant) {
-    // const reviewAvg = getReviewAverage(
-    //   variant?.product.reviews.map((r) => r.rating),
-    // );
+    const reviewAvg = getReviewAverage(
+      variant?.product.reviews.map((r) => r.rating),
+    );
 
     return (
       <main>
@@ -80,10 +80,10 @@ export default async function Page({ params }: Props) {
             <h2 className="text-2xl font-bold">{variant?.product.title}</h2>
             <div>
               <ProductType variants={variant.product.productVariants} />
-              {/* <Stars */}
-              {/*   rating={reviewAvg} */}
-              {/*   totalReviews={variant.product.reviews.length} */}
-              {/* /> */}
+              <Stars
+                rating={reviewAvg}
+                totalReviews={variant.product.reviews.length}
+              />
             </div>
             <Separator className="my-2" />
             <p className="py-2 text-2xl font-medium">
@@ -112,7 +112,7 @@ export default async function Page({ params }: Props) {
             {/* <AddCart /> */}
           </div>
         </section>
-        {/* <Reviews productID={variant.productID} /> */}
+        <Reviews productID={variant.productID} />
       </main>
     );
   }
