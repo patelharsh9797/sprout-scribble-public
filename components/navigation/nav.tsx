@@ -3,6 +3,7 @@ import { ModeToggle } from "../theme-provider";
 import Link from "next/link";
 import UserButton from "./user-button";
 import Logo from "./logo";
+import CartDrawer from "../cart/cart-drawer";
 
 export default async function Nav() {
   const sess = await auth();
@@ -16,6 +17,9 @@ export default async function Nav() {
         <ul className="flex items-center gap-4">
           <li>
             <ModeToggle />
+          </li>
+          <li>
+            <CartDrawer />
           </li>
           <UserButton session={sess} />
         </ul>

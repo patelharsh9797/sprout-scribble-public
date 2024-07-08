@@ -10,7 +10,7 @@ import ProductShowcase from "@/components/products/product-showcase";
 import Reviews from "@/components/reviews/reviews";
 import { getReviewAverage } from "@/lib/utils";
 import Stars from "@/components/reviews/stars";
-// import AddCart from "@/components/cart/add-cart";
+import AddCart from "@/components/cart/add-cart";
 
 export const revalidate = 60;
 
@@ -109,7 +109,7 @@ export default async function Page({ params }: Props) {
                 />
               ))}
             </div>
-            {/* <AddCart /> */}
+            <AddCart />
           </div>
         </section>
         <Reviews productID={variant.productID} />

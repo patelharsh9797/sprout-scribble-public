@@ -134,6 +134,20 @@
       "when": 1719916134875,
       "tag": "0018_nice_ronan",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "6",
+      "when": 1720418500492,
+      "tag": "0019_warm_whistler",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "6",
+      "when": 1720419823711,
+      "tag": "0020_curvy_iron_monger",
+      "breakpoints": true
     }
   ]
 }
