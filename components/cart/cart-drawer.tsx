@@ -10,7 +10,7 @@ import {
 } from "../ui/drawer";
 import { AnimatePresence, motion } from "framer-motion";
 import CartItems from "./cart-items";
-// import CartMessage from "./cart-message"
+import CartMessage from "./cart-message";
 // import Payment from "./payment"
 // import OrderConfirmed from "./order-confirmed"
 // import CartProgress from "./cart-progress"
@@ -38,7 +38,9 @@ export default function CartDrawer() {
         </div>
       </DrawerTrigger>
       <DrawerContent className="fixed bottom-0 left-0 max-h-[70vh] min-h-[50vh]">
-        <DrawerHeader>{/* <CartMessage /> */}</DrawerHeader>
+        <DrawerHeader>
+          <CartMessage />
+        </DrawerHeader>
         {/* <CartProgress /> */}
         <div className="overflow-auto p-4">
           {checkoutProgress === "cart-page" && <CartItems />}
