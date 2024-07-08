@@ -3,20 +3,19 @@
 import {
   Table,
   TableBody,
-  TableHead,
-  TableRow,
   TableCell,
   TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import { useCartStore } from "@/lib/client-store";
-import { AnimatePresence, motion } from "framer-motion";
-import { useMemo } from "react";
 import formatPrice from "@/lib/format-price";
-import Image from "next/image";
-import { MinusCircle, PlusCircle } from "lucide-react";
-// import Lottie from "lottie-react";
-// import emptyCart from "@/public/empty-box.json";
+import emptyCart from "@/public/empty-box.json";
 import { createId } from "@paralleldrive/cuid2";
+import { AnimatePresence, motion } from "framer-motion";
+import Lottie from "lottie-react";
+import { MinusCircle, PlusCircle } from "lucide-react";
+import Image from "next/image";
+import { useMemo } from "react";
 import { Button } from "../ui/button";
 
 export default function CartItems() {
@@ -47,7 +46,7 @@ export default function CartItems() {
             <h2 className="text-center text-2xl text-muted-foreground">
               Your cart is empty
             </h2>
-            {/* <Lottie className="h-64" animationData={emptyCart} /> */}
+            <Lottie className="h-64" animationData={emptyCart} />
           </motion.div>
         </div>
       )}
@@ -118,33 +117,37 @@ export default function CartItems() {
           </Table>
         </div>
       )}
-      <motion.div className="relative my-4 flex items-center justify-center overflow-hidden">
-        <span className="text-md">Total: $</span>
-        <AnimatePresence mode="popLayout">
-          {priceInLetters.map((letter, i) => (
-            <motion.div key={letter.id}>
-              <motion.span
-                initial={{ y: 20 }}
-                animate={{ y: 0 }}
-                exit={{ y: -20 }}
-                transition={{ delay: i * 0.1 }}
-                className="text-md inline-block"
-              >
-                {letter.letter}
-              </motion.span>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
-      <Button
-        onClick={() => {
-          setCheckoutProgress("payment-page");
-        }}
-        className="w-full max-w-md"
-        disabled={cart.length === 0}
-      >
-        Checkout
-      </Button>
+      {cart.length !== 0 && (
+        <>
+          <motion.div className="relative my-4 flex items-center justify-center overflow-hidden">
+            <span className="text-md">Total: $</span>
+            <AnimatePresence mode="popLayout">
+              {priceInLetters.map((letter, i) => (
+                <motion.div key={letter.id}>
+                  <motion.span
+                    initial={{ y: 20 }}
+                    animate={{ y: 0 }}
+                    exit={{ y: -20 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="text-md inline-block"
+                  >
+                    {letter.letter}
+                  </motion.span>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+          <Button
+            onClick={() => {
+              setCheckoutProgress("payment-page");
+            }}
+            className="w-full max-w-md"
+            disabled={cart.length === 0}
+          >
+            Checkout
+          </Button>
+        </>
+      )}
     </motion.div>
   );
 }

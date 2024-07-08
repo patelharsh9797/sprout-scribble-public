@@ -38,11 +38,7 @@ export default function CartDrawer() {
         </div>
       </DrawerTrigger>
       <DrawerContent className="fixed bottom-0 left-0 max-h-[70vh] min-h-[50vh]">
-        DrawerContent
-        <DrawerHeader>
-          Cart Stuff
-          {/* <CartMessage /> */}
-        </DrawerHeader>
+        <DrawerHeader>{/* <CartMessage /> */}</DrawerHeader>
         {/* <CartProgress /> */}
         <div className="overflow-auto p-4">
           {checkoutProgress === "cart-page" && <CartItems />}

@@ -19,6 +19,12 @@ const config = {
       },
     },
     extend: {
+      maxWidth: {
+        "8xl": "88rem",
+      },
+      minHeight: {
+        "50vh": "50vh",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -79,4 +85,3 @@ const config = {
 } satisfies Config;
 
 export default withUt(config);
-
