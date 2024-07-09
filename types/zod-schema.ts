@@ -117,3 +117,19 @@ export const ReviewSchema = z.object({
 });
 
 export type ReviewSchemaType = z.infer<typeof ReviewSchema>;
+
+export const paymentIntentSchema = z.object({
+  amount: z.number(),
+  currency: z.string(),
+  cart: z.array(
+    z.object({
+      quantity: z.number(),
+      productID: z.number(),
+      title: z.string(),
+      price: z.number(),
+      image: z.string(),
+    }),
+  ),
+});
+
+export type PaymentIntentSchemaType = z.infer<typeof paymentIntentSchema>;

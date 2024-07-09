@@ -141,7 +141,7 @@ export const columns: ColumnDef<ProductColumn>[] = [
     cell: ({ row }) => {
       const price = parseFloat(row.getValue("price"));
       const formatted = new Intl.NumberFormat("en-US", {
-        currency: "USD",
+        currency: "INR",
         style: "currency",
       }).format(price);
       return <div className="text-xs font-medium">{formatted}</div>;

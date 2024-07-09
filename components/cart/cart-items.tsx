@@ -120,7 +120,9 @@ export default function CartItems() {
       {cart.length !== 0 && (
         <>
           <motion.div className="relative my-4 flex items-center justify-center overflow-hidden">
-            <span className="text-md">Total: $</span>
+            <span className="text-md">
+              Total: {formatPrice(totalPrice).charAt(0)}{" "}
+            </span>
             <AnimatePresence mode="popLayout">
               {priceInLetters.map((letter, i) => (
                 <motion.div key={letter.id}>
