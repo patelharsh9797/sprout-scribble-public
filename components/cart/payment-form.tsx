@@ -11,7 +11,7 @@ import { Button } from "../ui/button";
 import { useState } from "react";
 import {
   createPaymentIntent,
-  // createOrder,
+  createOrder,
 } from "@/server/actions/stripe-actions";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
@@ -25,19 +25,19 @@ export default function PaymentForm({ totalPrice }: { totalPrice: number }) {
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
-  // const { execute } = useAction(createOrder, {
-  //   onSuccess: (data) => {
-  //     if (data.error) {
-  //       toast.error(data.error);
-  //     }
-  //     if (data.success) {
-  //       setIsLoading(false);
-  //       toast.success(data.success);
-  //       setCheckoutProgress("confirmation-page");
-  //       clearCart();
-  //     }
-  //   },
-  // });
+  const { execute } = useAction(createOrder, {
+    onSuccess: (data) => {
+      if (data.error) {
+        toast.error(data.error);
+      }
+      if (data.success) {
+        setIsLoading(false);
+        toast.success(data.success);
+        setCheckoutProgress("confirmation-page");
+        clearCart();
+      }
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,17 +86,16 @@ export default function PaymentForm({ totalPrice }: { totalPrice: number }) {
         return;
       } else {
         setIsLoading(false);
-        console.log("Succecc bruhhh!!!");
-        // execute({
-        //   status: "pending",
-        //   paymentIntentID: data.success.paymentIntentID,
-        //   total: totalPrice,
-        //   products: cart.map((item) => ({
-        //     productID: item.id,
-        //     variantID: item.variant.variantID,
-        //     quantity: item.variant.quantity,
-        //   })),
-        // });
+        execute({
+          status: "pending",
+          paymentIntentID: data.success.paymentIntentID,
+          total: totalPrice,
+          products: cart.map((item) => ({
+            productID: item.id,
+            variantID: item.variant.variantID,
+            quantity: item.variant.quantity,
+          })),
+        });
       }
     }
   };
